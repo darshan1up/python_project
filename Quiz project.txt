@@ -1,0 +1,46 @@
+def ask_question(question, options, correct_option):
+    print(question)
+    for idx, option in enumerate(options, 1):
+        print(f"{idx}. {option}")
+
+    while True:
+
+            answer = int(input("Select the correct option (1/2/3/4): "))
+            if 1 <= answer <= len(options):
+                if answer == correct_option:
+                    return True
+                else:
+                    print(f"Incorrect! Correct answer : {options[correct_option - 1]}")
+                    return False
+            else:
+                print("Invalid option.Choose a number between 1 and 4.")
+def run_quiz():
+    score = 0
+    questions = [
+        {
+            "question": "What is the capital of France?",
+            "options": ["Berlin", "Madrid", "Paris", "Lisbon"],
+            "correct_option": 3
+        },
+        {
+            "question": "Which city is known as the Pink City ?",
+            "options": ["Raipur", "Jaipur", "Agra", "Surat"],
+            "correct_option": 2
+        },
+        {
+            "question": "Which is the largest river on Earth ?",
+            "options": ["Brahmaputra", "Ganga", "Nile", "Amazon"],
+            "correct_option": 3
+        }
+    ]
+
+    for q in questions:
+        if ask_question(q["question"], q["options"], q["correct_option"]):
+            print("Correct!")
+            score += 1
+        else:
+            print("Next question!")
+
+    print(f" final score : {score}/{len(questions)}.")
+if __name__ == "__main__":
+    run_quiz()
