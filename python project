@@ -1,0 +1,10 @@
+def count_words(text):
+    # Split the text by space and count as word
+    words = text.split()
+    # Return  number of words
+    return len(words)
+
+    # Sample text input
+text = input("Enter the text: ")
+word_count = count_words(text)
+print(f"The number of words in the text is: {word_count}")
