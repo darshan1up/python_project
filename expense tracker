@@ -1,0 +1,64 @@
+import json
+from datetime import datetime
+EXPENSES_FILE = 'expenses.json'
+
+
+def load_expenses():
+
+    try:
+        with open(EXPENSES_FILE, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        return []
+
+
+def save_expenses(expenses):
+
+    with open(EXPENSES_FILE, 'w') as file:
+        json.dump(expenses, file, indent=4)
+def add_expense(expenses):
+    date = input("Enter the date (YYYY-MM-DD): ")
+    amount = float(input("Enter the amount: "))
+    description = input("Enter a description: ")
+    expense = {
+        "date": date,
+        "amount": amount,
+        "description": description
+    }
+    expenses.append(expense)
+    save_expenses(expenses)
+    print("Expense added successfully.")
+def view_expenses(expenses):
+    if not expenses:
+        print("No expenses to display.")
+        return
+    for expense in expenses:
+        print(f"Date: {expense['date']}, Amount: ${expense['amount']:.2f}, Description: {expense['description']}")
+def summarize_expenses(expenses):
+    total = sum(expense['amount'] for expense in expenses)
+    print(f"Total Expenses: ${total:.2f}")
+def main():
+    expenses = load_expenses()
+    while True:
+        print("\nExpense Tracker")
+        print("1. Add Expense")
+        print("2. View Expenses")
+        print("3. Summarize Expenses")
+        print("4. Exit")
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            add_expense(expenses)
+        elif choice == '2':
+            view_expenses(expenses)
+        elif choice == '3':
+            summarize_expenses(expenses)
+        elif choice == '4':
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
